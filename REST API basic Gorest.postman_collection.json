@@ -25,6 +25,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "75ef978966102b4bf25fc1f96c01a2c1156f9a7cc0e97941db9b92263ef21328",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -37,9 +47,17 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL}}{{users}}",
+					"raw": "https://gorest.co.in/public/v1/users",
+					"protocol": "https",
 					"host": [
-						"{{URL}}{{users}}"
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v1",
+						"users"
 					]
 				}
 			},
