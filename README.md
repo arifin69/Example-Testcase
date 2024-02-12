@@ -22,7 +22,7 @@ https://maestro.mobile.dev/getting-started/installing-maestro
 
 # Run a Sample Flow
 
-maestro test namefile.yaml
+maestro test -c namefile.yaml
 
 
 
