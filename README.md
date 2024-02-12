@@ -24,6 +24,10 @@ https://maestro.mobile.dev/getting-started/installing-maestro
 
 maestro test -c namefile.yaml
 
+# How To Connect Device Android
+
+Must setting Active usb Debuging
+
 
 
 
