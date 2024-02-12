@@ -1,0 +1,16 @@
+appId: com.swaglabsmobileapp
+---
+- launchApp
+
+- tapOn: "Username"
+- inputText: ""
+- tapOn: "Password"
+- inputText: "secret_sauce"
+- "hideKeyboard"
+- tapOn: "LOGIN"
+- runFlow:
+    when:
+      notVisible:
+        text: "PRODUCTS"
+    file: "TC06-login-valid-data.yaml"
+

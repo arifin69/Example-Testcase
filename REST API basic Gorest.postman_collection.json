@@ -1,0 +1,667 @@
+{
+	"info": {
+		"_postman_id": "c0082e5f-3a63-4120-b392-90c2027c3e5e",
+		"name": "REST API basic Gorest",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Tests\" tab**\n\nTests help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/b5f280a7-4b09-48ec-857f-0a7ed99d7ef8/U2NyZWVuc2hvdCAyMDIzLTAzLTI3IGF0IDkuNDcuMjggUE0ucG5n\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) in \"Tests\" to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26353231"
+	},
+	"item": [
+		{
+			"name": "Create user valid data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.globals.set(\"usersID\", jsonData.data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"budimanaja\", \r\n    \"gender\": \"male\", \r\n    \"email\": \"budiman02@gmail.com\", \r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}{{users}}",
+					"host": [
+						"{{URL}}{{users}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user invalid data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Budimansaja\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}{{users}}",
+					"host": [
+						"{{URL}}{{users}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user already exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Elbert Gulgowski\",\r\n    \"email\": \"Webster_Schaefer77@example.net\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}{{users}}",
+					"host": [
+						"{{URL}}{{users}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list all user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}{{users}}",
+					"host": [
+						"{{URL}}{{users}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users with page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}{{users}}?page=3",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users with invalid gender",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Pagination-Limit",
+						"value": "20",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}{{users}}?gender=malle",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "malle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users with valid gender",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Pagination-Limit",
+						"value": "20",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}{{users}}?gender=malle",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "malle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users with invalid status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Pagination-Limit",
+						"value": "20",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}{{users}}?gender=malle",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "malle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users with valid status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Pagination-Limit",
+						"value": "20",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}{{users}}?gender=malle",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "malle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users with invalid email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Pagination-Limit",
+						"value": "20",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}{{users}}?gender=malle",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "malle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users with valid email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Pagination-Limit",
+						"value": "20",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}{{users}}?gender=malle",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "malle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user with valid ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}{{users}}/91",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"path": [
+						"91"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get unavailable userId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}{{users}}/00",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"path": [
+						"00"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  user with string ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}{{users}}/abcd",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"path": [
+						"abcd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user with valid data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Edward Cullen\", \r\n    \"gender\": \"male\", \r\n    \"email\": \"edwardcullen@yahoo.com\", \r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}{{users}}/",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update unavailable user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{$randomFullName}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}{{users}}/0",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"path": [
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user with invalid Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}{{users}}/",
+					"host": [
+						"{{URL}}{{users}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

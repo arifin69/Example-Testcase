@@ -1,0 +1,13 @@
+appId: com.swaglabsmobileapp
+---
+- launchApp
+- tapOn: "Username"
+- inputText: "standard_userr"
+- tapOn: "Password"
+- inputText: "secret_sauce"
+- tapOn: "LOGIN"
+- runFlow:
+    when:
+      notVisible:
+        text: "PRODUCTS"
+    file: "TC03-login-IncorectPassword.yaml"
